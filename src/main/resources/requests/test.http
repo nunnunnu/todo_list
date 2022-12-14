@@ -1,0 +1,41 @@
+###제품 추가
+PUT http://localhost:9988/api/member/join HTTP/1.1
+content-type : application/json
+
+{
+    "email" : "user002@service.com",
+    "pwd" : "1234",
+    "name" : "사용자2",
+    "birth" : "2022-12-14T00:00:00",
+    "regDt" : "2022-12-14T00:00:00"
+}
+###로그인
+POST http://localhost:9988/api/member/login HTTP/1.1
+content-type : application/json
+
+{
+    "email" : "user001@service.com",
+    "pwd" : "1234"
+}
+
+###Todo 등록
+PUT http://localhost:9988/api/todo/add HTTP/1.1
+content-type : application/json
+
+{
+    "content" : "Todo5",
+    "status" : 1,
+    "startDt" : "2022-12-30T00:00:00",
+    "endDt" : "2022-12-30T00:00:00"
+}
+###내 TodoList 조회
+GET http://localhost:9988/api/todo/list HTTP/1.1
+
+###Todo 내용 수정
+PATCH  http://localhost:9988/api/todo/update/content?&value=sssss&seq=1 HTTP/1.1
+###Todo 상태 변경
+PATCH  http://localhost:9988/api/todo/update/status?&value=2&seq=1 HTTP/1.1
+###Todo 삭제
+DELETE http://localhost:9988/api/todo/delete?seq=3 HTTP/1.1
+###Todo 날짜범위 조회
+GET http://localhost:9988/api/todo/list/term?start=221226&end=221230 HTTP/1.1
