@@ -39,3 +39,5 @@ PATCH  http://localhost:9988/api/todo/update/status?&value=2&seq=1 HTTP/1.1
 DELETE http://localhost:9988/api/todo/delete?seq=3 HTTP/1.1
 ###Todo 날짜범위 조회
 GET http://localhost:9988/api/todo/list/term?start=221226&end=221230 HTTP/1.1
+###파일 다운
+GET http://localhost:9988/image/Fj8pPNYaAAAoWja.jpg HTTP/1.1

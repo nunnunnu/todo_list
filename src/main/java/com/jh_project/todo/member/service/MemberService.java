@@ -1,6 +1,7 @@
 package com.jh_project.todo.member.service;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.jh_project.todo.member.data.LoginVO;
+import com.jh_project.todo.member.entity.MemberImageEntity;
 import com.jh_project.todo.member.entity.MemberInfoEntity;
-import com.jh_project.todo.member.repository.memberRepository;
+import com.jh_project.todo.member.repository.MemberImageRepository;
+import com.jh_project.todo.member.repository.MemberRepository;
 import com.jh_project.todo.utils.AESAlgorith;
 
 @Service
 public class MemberService {
-    @Autowired memberRepository m_repo;
+    @Autowired MemberRepository m_repo;
+    @Autowired MemberImageRepository mi_repo;
+    
+    public Map<String, Object>  addMemberImage(MemberImageEntity data, Long miSeq){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        data.setMiSeq(miSeq);
+        mi_repo.save(data);
+        map.put("status", true);
+        map.put("message", "이미지가 저장되었습니다.");
+        map.put("code", HttpStatus.OK);
+        return map;
+    }
+    public String getFileNameByUri(String uri){
+        List<MemberImageEntity> data = mi_repo.findTopByUriOrderBySeqDesc(uri);
+        return data.get(0).getFileName();
+    }
     
     public Map<String, Object> addMember(MemberInfoEntity data){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();

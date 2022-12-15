@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jh_project.todo.todoList.entity.TodoInfoEntity;
 import com.jh_project.todo.todoList.service.TodoInfoService;
 
-import net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy.Simple;
-
 @RestController
 @RequestMapping("/api/todo")
 public class TodoAPIController {
@@ -65,6 +63,7 @@ public class TodoAPIController {
     //     Map<String, Object> map = tService.deleteTodo(seq, miSeq);
     //     return new ResponseEntity<>(map, (HttpStatus)map.get("code"));
     // }
+    
     @DeleteMapping("/delete")
     public ResponseEntity<Object> deleteTodo(@RequestParam Long seq, HttpSession session){
         Map<String, Object> map = tService.deleteTodo(seq, session);

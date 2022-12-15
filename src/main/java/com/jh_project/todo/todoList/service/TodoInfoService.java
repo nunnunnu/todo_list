@@ -14,12 +14,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.jh_project.todo.member.entity.MemberInfoEntity;
+import com.jh_project.todo.todoList.entity.TodoImageEntity;
 import com.jh_project.todo.todoList.entity.TodoInfoEntity;
+import com.jh_project.todo.todoList.repository.TodoImageRepository;
 import com.jh_project.todo.todoList.repository.TodoRepository;
 
 @Service
 public class TodoInfoService {
     @Autowired TodoRepository t_repo;
+    
+    @Autowired TodoImageRepository tiRepo;
+
+    public Map<String, Object>  addTodoImage(TodoImageEntity data, Long tiSeq){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        data.setTiSeq(tiSeq);
+        tiRepo.save(data);
+        map.put("status", true);
+        map.put("message", "이미지가 저장되었습니다.");
+        map.put("code", HttpStatus.OK);
+        return map;
+    }
 
     public Map<String, Object> addTodoList(TodoInfoEntity data, HttpSession session){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -158,5 +172,9 @@ public class TodoInfoService {
             map.put("code", HttpStatus.OK);
         }
         return map;
+    }
+    public String getFileNameByUri(String uri){
+        List<TodoImageEntity> data = tiRepo.findTopByUriOrderBySeqDesc(uri);
+        return data.get(0).getFileName();
     }
 }
